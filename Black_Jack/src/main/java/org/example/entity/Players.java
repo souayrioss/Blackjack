@@ -1,7 +1,11 @@
 package org.example.entity;
 
-public class Players extends Users{
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Players extends Users implements Serializable {
       private double money;
+      private  ArrayList<Cartes> cartes_Player = new ArrayList<>();
 
       public Players() {
       }
@@ -14,4 +18,11 @@ public class Players extends Users{
             this.money = money;
       }
 
+      public ArrayList<Cartes> getCartes_Player() {
+            return cartes_Player;
+      }
+
+      public void setCartes_Player(ArrayList<Cartes> cartes_Player) {
+            this.cartes_Player = cartes_Player;
+      }
 }

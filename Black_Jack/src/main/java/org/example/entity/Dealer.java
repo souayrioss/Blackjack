@@ -1,6 +1,8 @@
 package org.example.entity;
 
-public class Dealer extends Users{
+import java.io.Serializable;
+
+public class Dealer extends Users implements Serializable {
     public Dealer() {
     }
 }

@@ -1,9 +1,6 @@
 package org.example;
 
-import org.example.entity.Dealer;
-import org.example.entity.Players;
-import org.example.entity.Roles;
-import org.example.entity.Users;
+import org.example.entity.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,12 +9,13 @@ import java.util.List;
 import java.util.Set;
 
 public class Data implements Serializable {
- /*   private static Data data;
-    public static Users isConnected=null;
+    private static Data data;
+    public static Players isConnected=null;
     private static final String filePath="./src/main/java/org/example/data.txt";
-    public List<Users> users;
+    public List<Players> users;
     public Set<Roles> roles;
 
+    ArrayList<Cartes> cartes_Dealer = new ArrayList<>();
     public Data() {
         this.users = new ArrayList<>();
         this.roles = new HashSet<>();
@@ -59,11 +57,12 @@ public class Data implements Serializable {
         Roles Player = Roles.PLAYER;
         Roles Dealer = Roles.DEALER;
 
-        Dealer dealer = new Dealer();
+        /*Dealer dealer = new Dealer();
         dealer.setUsername("sliim");
         dealer.setPassword("azerty");
         dealer.setRole(Dealer);
         this.users.add(dealer);
+         */
 
         Players playerOussama = new Players();
         playerOussama.setUsername("souayrioss");
@@ -89,7 +88,5 @@ public class Data implements Serializable {
 
 
     }
-    
-  */
 
 }
