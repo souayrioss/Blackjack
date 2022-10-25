@@ -4,6 +4,8 @@ import org.example.entity.*;
 
 import java.util.*;
 
+
+
 public class Utils {
     private static Utils util;
     public static Utils getInstance(){
@@ -54,8 +56,13 @@ public class Utils {
         return false;
     }
     public static void start_game(HashMap<Integer,Cartes> cartes){
-
+        boolean stop = false;
         piocher_n_cartes(cartes);
+        if (sum_value_player() == 21) {
+            blakJack();
+        }
+        //System.out.println(util.getCartes_Defausser());
+        while (sum_value_player() < 21 || sum_value_player()>sum_value_dealer()){
             System.out.println(util.getCartes_Player());
             System.out.println("La valeur de votre cartes :" + sum_value_player());
             System.out.println("Pour tirer une carte : 1");
@@ -67,15 +74,35 @@ public class Utils {
             }while (choix > 2);
             switch (choix){
                 case 1:
-                   piocher_carte(cartes);
+                    piocher_carte(cartes);
                     break;
                 case 2:
                     rester(cartes);
-
+                    stop = true;
                     break;
 
             }
+            if (sum_value_player() == 21){
+                rester(cartes);
+            }
+            if(sum_value_player() > 21){
+                System.out.println(util.getCartes_Player());
+                System.out.println(sum_value_player());
+                System.out.println(util.getCartes_Dealer());
+                System.out.println("La valeur de tireur cartes :" + sum_value_dealer());
+                System.err.println("LOSER");
+            }
+            if (stop){
+                break;
+            }
+        }
+
             defausser_cartes();
+    }
+
+    private static void blakJack() {
+        System.err.println("**********************BLACH---JACK*****************");
+
     }
 
     public static HashMap<Integer, Cartes> creatCartes(HashMap<Integer, Cartes> cartes){
@@ -133,8 +160,9 @@ public class Utils {
     public static HashMap<Integer, Cartes>  piocher_n_cartes (HashMap<Integer, Cartes> cartes ){
         ArrayList<Cartes> cartes_Player = new ArrayList<>();
         ArrayList<Cartes> cartes_Dealer = new ArrayList<>();
+        int index = 52-cartes.size()+1;
         Utils util = Utils.getInstance();
-        for (int i = 1; i < 5; i++) {
+        for (int i = index; i < index+4; i++) {
              Cartes carte = cartes.get(i);
              cartes.remove(i);
             if ( i%2 == 0) {
@@ -186,14 +214,6 @@ public class Utils {
         cartes_Player.add(carte);
         util.setCartes_Player(cartes_Player);
 
-        if(sum_value_player() > 21){
-            System.out.println(util.getCartes_Player());
-            System.out.println(sum_value_player());
-            System.out.println(util.getCartes_Dealer());
-            System.out.println("La valeur de tireur cartes :" + sum_value_dealer());
-            System.err.println("LOSER");
-
-        }
 
         sum_value_dealer();
         return cartes;
@@ -211,9 +231,11 @@ public class Utils {
         return cartes;
     }
     public static void rester(HashMap<Integer, Cartes> cartes ){
-        if(sum_value_dealer() < 17) {
-            while (sum_value_dealer() < 17) {
-                piocher_carte_Dealer(cartes);
+        if (sum_value_player() <= 21){
+            if(sum_value_dealer() < 17) {
+                while (sum_value_dealer() < 17) {
+                    piocher_carte_Dealer(cartes);
+                }
             }
         }
         System.out.println(util.getCartes_Dealer());
@@ -222,15 +244,14 @@ public class Utils {
                 System.err.println("WINER");
             }else {
                 if (sum_value_dealer() > sum_value_player()) {
-                    sum_value_dealer();
                     System.err.println("LOSER");
                 } else if (sum_value_dealer() < sum_value_player()) {
-                    sum_value_dealer();
                     System.err.println("WINER");
                 } else {
                     System.err.println("PUSH");
                 }
             }
+
 
     }
 
